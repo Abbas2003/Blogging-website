@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-gray-900">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-lg p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-gray-900">Daily-do Blog</a>
+            <!-- Mobile Menu Button -->
+            <button class="block md:hidden text-gray-900 focus:outline-none" onclick="toggleMenu()">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <!-- Links -->
+            <div class="hidden md:flex space-x-4">
+                <a href="#" class="text-gray-600 hover:text-gray-900">Home</a>
+                <a href="./pages/Blogs/blogs.html" class="text-gray-600 hover:text-gray-900">Blog</a>
+                <a href="./pages/contact/contact.html" class="text-gray-600 hover:text-gray-900">Contact</a>
+                <a href="./pages/auth/login/login.html" id="LoginLink" class="text-gray-600 hover:text-gray-900">Login</a>
+                <a href="./pages/auth/signup/signup.html" id="SignupLink" class="text-gray-600 hover:text-gray-900">Sign-up</a>
+                <button class="text-white hidden bg-red-500 px-2 py-1 rounded" onclick="logout()" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden text-center">
+            <a href="#" class="block text-gray-600 hover:text-gray-900 px-4 py-2">Home</a>
+            <a href="./pages/Blogs/blogs.html" class="block text-gray-600 hover:text-gray-900 px-4 py-2">Blog</a>
+            <a href="./pages/contact/contact.html" class="block text-gray-600 hover:text-gray-900 px-4 py-2">Contact</a>
+            <a href="./pages/auth/login/login.html" id="LoginLinkMob" class="block text-gray-600 hover:text-gray-900 px-4 py-2">Login</a>
+            <a href="./pages/auth/signup/signup.html" id="SignupLinkMob" class="block text-gray-600 hover:text-gray-900 px-4 py-2">Sign-up</a>
+            <button class="text-white hidden bg-red-500 px-2 py-1 rounded" onclick="logout()" id="logoutBtnMob">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Hero Section -->
+    <section class="flex items-center justify-center min-h-screen">
+        <div class="text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-8">
+                Your Daily-do Solutions Are Here
+            </h1>
+            <p class="text-lg md:text-2xl text-white font-medium mb-8">
+                Discover the best tips and tricks to boost your daily productivity.
+            </p>
+            <a href="#blog-posts" class="px-6 py-3 bg-white text-gray-900 font-bold rounded-full shadow-lg hover:bg-gray-200 transition duration-300">
+                Explore Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog-posts" class="container mx-auto py-20">
+        <h2 class="text-4xl font-bold text-center mb-12 text-white">Latest Blog Posts</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-2" id="blogList">
+           <!-- Latest blogs will be inserted dynamically -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <p class="text-gray-400 mb-4 md:mb-0">© 2024 Daily-do Blog. All rights reserved.</p>
+            <div class="flex flex-col md:flex-row space-y-1 md:space-y-0 md:space-x-4">
+                <p class="text-gray-400">Developed by <span class="text-white">M.Abbas</span></p>
+                <p class="text-gray-400 ml-2">Karachi, Pakistan</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="./app.js" type="module"></script>
+
+</body>
+
+</html>
