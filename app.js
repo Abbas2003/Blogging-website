@@ -16,7 +16,7 @@ import {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    // Your firebase config here
+// your firebase config here
 };
 
 // Initialize Firebase
@@ -25,7 +25,7 @@ const analytics = getAnalytics(app);
 const auth = getAuth();
 const db = getFirestore();
 
-
+let allBlogs = []
 
 
 function main(){
@@ -97,15 +97,23 @@ const renderBlogs = () => {
     let blogList = document.getElementById("blogList")
 
     allBlogs.forEach(obj => {
-        // console.log(obj.id);
+        // console.log(obj.id); 
         
         blogList.innerHTML += `<div class="bg-white shadow-lg overflow-hidden">
                 <img src="${obj.image}" alt="${obj.title, obj.catogory}" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-xl mb-2">${obj.title}</h3>
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-xl mb-2">${obj.title}</h3>
+                        <p>Author: <span class="font-semibold text-gray-700">${obj.userName.toUpperCase()}</span></p>
+                    </div>
                     <p class="text-gray-700 mb-4">${obj.content.substring(0,70)}..</p>
-                    <a href="./pages/Blogs/blogs.html" class="text-indigo-500 hover:text-indigo-700 font-semibold">Read More</a>
+                    <a href="./pages/Blogs/BlogPage/page.html" onclick="getId('${obj.id}')" class="text-indigo-500 hover:text-indigo-700 font-semibold">Read More</a>
                 </div>
             </div>`
     })
+}
+
+window.getId = (id) => {
+    localStorage.setItem('blogId', id);
+    console.log(id);
 }

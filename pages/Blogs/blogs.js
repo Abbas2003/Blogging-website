@@ -13,7 +13,7 @@ import {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    // Firebase config here
+// Your firebase config here
 };
 
 // Initialize Firebase
@@ -23,6 +23,7 @@ const auth = getAuth();
 const db = getFirestore();
 const storage = getStorage()
 
+// Global variables
 let title = document.getElementById('title')
 let category = document.getElementById('category')
 let content = document.getElementById('content')
@@ -32,6 +33,7 @@ let user = JSON.parse(localStorage.getItem('user'))
 const date = new Date()
 let allBlogs = []
 
+// Function to get all blogs from db
 const getBlogs = async () => {
     const reference = collection(db, "blogs");
     const dt = await getDocs(reference);
@@ -53,28 +55,7 @@ const getBlogs = async () => {
 }
 getBlogs()
 
-// const renderBlogs = () => {
-//     let blogList = document.getElementById("blogList")
-
-//     allBlogs.forEach(obj => {
-//         // console.log(obj.id);
-
-//         blogList.innerHTML += `<div onclick="getId('${obj.id}')" class="bg-white rounded-lg shadow-lg flex flex-col md:flex-row items-center p-5 mb-6 hover:shadow-2xl transition">
-//         <!-- Blog Content -->
-//         <div class="md:w-2/3 w-full md:pr-6">
-//                     <h2 class="text-3xl font-bold text-gray-900 mb-2">${obj.title}</h2>
-//                     <p class="text-gray-600 mb-4">by <span class="font-semibold">${obj.userName}</span> on <span class="font-semibold">${obj.date}</span></p>
-//                     <p class="mb-2">Category <span class="text-red-500 font-semibold">${obj.category}</span></p>
-//                     <p class="text-gray-700">${obj.content.substring(0, 150)} <a href="./BlogPage/page.html" class="text-indigo-500 hover:text-indigo-700 font-semibold">Continue reading...</a></p>
-//                 </div>
-//                 <!-- Blog Image -->
-//                 <div class="md:w-1/3 w-full mt-4 md:mt-0">
-//                     <img src="${obj.image}" alt="Blog Image" class="rounded-lg object-cover w-full h-full">
-//                 </div>
-//                  </div>`
-//     })
-// }
-
+// Function to render the blogs on HTML document
 const renderBlogs = () => {
     let blogList = document.getElementById("blogList");
     blogList.innerHTML = ''; // Clear the list before rendering
@@ -97,19 +78,24 @@ const renderBlogs = () => {
     });
 }
 
-
-
+// Function to get the Blog ID & set into Local stg.
 window.getId = (id) => {
     localStorage.setItem('blogId', id)
     window.location.replace('./BlogPage/page.html')
     console.log(id);
 }
 
+// Function to handle the blog submission
 window.submitBlog = () => {
     // Check if user is logged in
     if (!user || !user.username) {
         alert("You must be logged in to write a blog.");
         return;
+    }
+
+    if (!title.value && category.value && content.value){
+        alert("Please fill the details")
+        return
     }
 
     let blog = {
@@ -128,7 +114,7 @@ window.submitBlog = () => {
             const reference = collection(db, 'blogs');
             const res = await addDoc(reference, blog)
             console.log(res);
-            showNotification();
+            showNotification("Your blog has been uploaded!");
         })
         .catch((e) => {
             alert(e.message)
@@ -187,11 +173,12 @@ window.toggleMenu = () => {
     menu.classList.toggle('hidden');
 }
 
-// Function to show the blog notification
-function showNotification() {
+// Function to show the notifications
+function showNotification(message) {
     const notification = document.getElementById('blogNotification');
     notification.style.opacity = '1';
     notification.style.visibility = 'visible';
+    notification.innerHTML = message;
 
     // Hide the notification after 3 seconds
     setTimeout(() => {
@@ -200,12 +187,11 @@ function showNotification() {
     }, 3000);
 }
 
-
-
+// Function to handle user activity
 function main() {
     // let user = JSON.parse(localStorage.getItem('user'))
     renderBlogs()
-    console.log(user);
+    // console.log(user);
 
     let LoginLink = document.getElementById("LoginLink")
     let SignupLink = document.getElementById("SignupLink")
@@ -229,7 +215,7 @@ function main() {
 
 main()
 
-
+// Function to logout the user & empty Local stg.
 window.logout = () => {
     signOut(auth)
         .then(() => {
